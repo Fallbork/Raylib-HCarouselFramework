@@ -77,7 +77,7 @@ void Carousel::HandleInput() {
 		camera.target.x = CLAMP(0, camera.target.x + mouse_offset, length);
 	}
 	for (CB& button : buttons) {
-		if (IN_RANGE(camera.target.x - camera.offset.x - CB::w, button.x, camera.target.x - camera.offset.x + GetScreenWidth()) &&
+		if (IN_RANGE(camera.target.x - camera.offset.x - CB::w, button.x, camera.target.x + camera.offset.x) &&
 			button.hovering && IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) {
 			button.OnClick();
 			camera.target.x = mid_point;		// Sketchy as hell pt. 2: Electric Boogaloo :)))))))))))))000
@@ -90,7 +90,7 @@ void Carousel::Update() {
 	const Vector2 mouse_pos = { GetMouseX() + camera.target.x - camera.offset.x,
 								GetMouseY() + camera.target.y - camera.offset.y };
 	for (CB& button : buttons) {
-		if (IN_RANGE(camera.target.x - camera.offset.x - CB::w, button.x, camera.target.x - camera.offset.x + GetScreenWidth())) {
+		if (IN_RANGE(camera.target.x - camera.offset.x - CB::w, button.x, camera.target.x + camera.offset.x)) {
 			if (IN_RANGE(button.x, camera.target.x, button.x + CB::w)) {
 				if (!button.selected) {
 					button.OnSelect();
